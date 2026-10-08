@@ -1,18 +1,18 @@
 {
   "expo": {
-    "name": "starter-kit-expo",
-    "slug": "starter-kit-expo",
+    "name": "tentram-lestari-indah-agency",
+    "slug": "tentram-lestari-indah-agency",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "starterkitexpo",
+    "icon": "./assets/images/logoApps.png",
+    "scheme": "tentramlestarindahagency",
     "userInterfaceStyle": "automatic",
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logoApps.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.starterkitexpo"
+      "package": "com.anonymous.tliagency"
     },
     "web": {
       "bundler": "metro",

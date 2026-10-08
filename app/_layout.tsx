@@ -14,9 +14,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { CartProvider } from '@/context/CartContext';
+import { AuthProvider } from '@/context/AuthContext';
 
 export {
-  // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from 'expo-router';
 
@@ -28,7 +29,6 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -38,6 +38,11 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  if (!loaded) {
+    return null;
+  }
+
   return <RootLayoutNav />;
 }
 
@@ -48,24 +53,28 @@ function RootLayoutNav() {
   );
 
   return (
+<AuthProvider>
     <ThemeProvider value={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <GluestackUIProvider mode={colorMode}>
-          <StatusBar style={colorMode === 'dark' ? 'light' : 'dark'} />
-          <Slot />
-          {pathname === '/' && (
-            <Fab
-              onPress={() =>
-                setColorMode(colorMode === 'dark' ? 'light' : 'dark')
-              }
-              className="m-6"
-              size="lg"
-            >
-              <FabIcon as={colorMode === 'dark' ? MoonIcon : SunIcon} />
-            </Fab>
-          )}
+          <CartProvider>
+            <StatusBar style={colorMode === 'dark' ? 'light' : 'dark'} />
+            <Slot />
+            {pathname === '/' && (
+              <Fab
+                onPress={() =>
+                  setColorMode(colorMode === 'dark' ? 'light' : 'dark')
+                }
+                className="m-6"
+                size="lg"
+              >
+                <FabIcon as={colorMode === 'dark' ? MoonIcon : SunIcon} />
+              </Fab>
+            )}
+          </CartProvider>
         </GluestackUIProvider>
       </GestureHandlerRootView>
     </ThemeProvider>
+</AuthProvider>
   );
 }
